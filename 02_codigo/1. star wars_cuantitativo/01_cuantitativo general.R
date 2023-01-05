@@ -20,7 +20,7 @@ options(scipen=999) #para prvenir notación científica
 
 if(!require('pacman')) install.packages('pacman')
 
-pacman::p_load(grid, lubridate, tidyverse, janitor, scales)
+pacman::p_load(grid, lubridate, tidyverse, janitor,resumeRdesc, scales)
 
 # Cargamos bases de datos ----------------------------------------------
 starwars_data <- starwars
@@ -41,6 +41,24 @@ starwars_data %>%
                     labels = c("Femenino", "Masculino", "Ninguno"),
                     values = c("orange", "green", "black")) +
   labs(title="Personajes de Star wars",
+       subtitle="Grafica de densidad de la altura de los personajes por género",
+       x="Altura (cm)", y="Desnsidad") +
+  theme_light() +
+  theme(legend.position="bottom",
+        legend.title=element_text(face="bold"),
+        plot.title=element_text(size=15, face="bold",
+                                hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5),
+        axis.title=element_text(size=12),
+        axis.line=element_line(size=1.01, color="grey35"),
+        legend.box.background=element_rect(color="grey75", size=1))
+
+starwars_data %>%
+  replace_na(list(gender = "none",
+                  sex = "none")) %>% 
+  ggplot(aes(x=height)) +
+  geom_density(alpha=0.5, size=1, fill = "blue", color = "black") +
+  labs(title="Personajes de Star wars",
        subtitle="Grafica de densidad de la altura de los personajes",
        x="Altura (cm)", y="Desnsidad") +
   theme_light() +
@@ -53,3 +71,6 @@ starwars_data %>%
         axis.line=element_line(size=1.01, color="grey35"),
         legend.box.background=element_rect(color="grey75", size=1))
 
+resume2data(starwars_data$height)
+resume(starwars_data$height)
+# resumendf(data = starwars_data$height, formula = data.frame)
