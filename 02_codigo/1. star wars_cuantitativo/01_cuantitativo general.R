@@ -32,6 +32,9 @@ glimpse(starwars_data)
 str(starwars_data)
 
 ### Empezamos con el género y sexo------------------
+
+## Distribución de altura en cm por género
+
 starwars_data %>%
   replace_na(list(gender = "none",
                   sex = "none")) %>% 
@@ -53,6 +56,7 @@ starwars_data %>%
         axis.line=element_line(size=1.01, color="grey35"),
         legend.box.background=element_rect(color="grey75", size=1))
 
+# Distribución de altura 
 starwars_data %>%
   replace_na(list(gender = "none",
                   sex = "none")) %>% 
@@ -71,6 +75,24 @@ starwars_data %>%
         axis.line=element_line(size=1.01, color="grey35"),
         legend.box.background=element_rect(color="grey75", size=1))
 
+# Medidas de dispersión, posición, etc
 resume2data(starwars_data$height)
 resume(starwars_data$height)
 # resumendf(data = starwars_data$height, formula = data.frame)
+
+# Histograma de altura
+starwars_data %>% 
+  count(height) %>% 
+  print(n = Inf)
+
+starwars_data %>% 
+  ggplot(aes(x = height)) +
+  geom_histogram()
+
+starwars_data %>% 
+  ggplot(aes(x = height, fill = ..count..)) +
+  geom_bar()
+
+starwars_data %>% 
+  ggplot(aes(x = height)) +
+  geom_bar()
