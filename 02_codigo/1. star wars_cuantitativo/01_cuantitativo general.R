@@ -1,4 +1,4 @@
-### Star wars 1
+### Star wars 1 Análisis Exploratorio de Datos (EDA)
 
 ## Código re-elaborado por Toaki Hoz Canabal con base en title: "**EDA - Star Wars data set**" de author: "Xavier Vivancos García"
 
@@ -31,6 +31,25 @@ summary(starwars_data)
 glimpse(starwars_data)
 str(starwars_data)
 
-
-
+### Empezamos con el género y sexo------------------
+starwars_data %>%
+  replace_na(list(gender = "none",
+                  sex = "none")) %>% 
+  ggplot(aes(x=height, fill=gender)) +
+  geom_density(alpha=0.5, size=0.7) +
+  scale_fill_manual(name = "Género",
+                    labels = c("Femenino", "Masculino", "Ninguno"),
+                    values = c("orange", "green", "black")) +
+  labs(title="Personajes de Star wars",
+       subtitle="Grafica de densidad de la altura de los personajes",
+       x="Altura (cm)", y="Desnsidad") +
+  theme_light() +
+  theme(legend.position="bottom",
+        legend.title=element_text(face="bold"),
+        plot.title=element_text(size=15, face="bold",
+                                hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5),
+        axis.title=element_text(size=12),
+        axis.line=element_line(size=1.01, color="grey35"),
+        legend.box.background=element_rect(color="grey75", size=1))
 
